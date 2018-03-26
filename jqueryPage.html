@@ -1,8 +1,9 @@
 <html>
 <head>
   <title>jqueryPage</title>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <!-- IMPORTED BOOTSTRAP AND JQUERY -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
   
@@ -31,14 +32,49 @@
     <div class="row">
       <div class="col-md-5"></div>
       <div class="col-md-7"> 
-        <button type="button" class="btn btn-success" id="loggDisplay">Success</button> </div>
+        <button type="button" class="btn btn-success" onclick="loadXMLDoc()">load</button> </div>
     </div>
-    <script>
-      $("#loggDisplay").click( function() {
-        alert("LOG CLICKED!");
-        //$('#loggDisplay').delay(3000).fadeOut();
-      });
-    </script>
-  </body>
 
+    <!-- TEMPERATURE VALUES DISPLAYED ON SCREEN -->
+    <div class="row">
+      <div class="col-md-5"></div>
+      <div class="col-md-7"> <p id="demo"></p> </div>
+    </div>
+
+<script>
+function loadXMLDoc() {
+  //xmlhttp object
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      //gather temperature values and display them to the screen
+      myFunction(this);
+    }
+  };
+  //xml data from yr.no's webpage
+  var api_uri = "https://api.met.no/weatherapi/locationforecast/1.9/?lat=60.10&lon=9.58";
+  //use http GET to acquire data
+  xmlhttp.open("GET", api_uri, true);
+  xmlhttp.send();
+}
+
+function myFunction(xml) {
+  var x, i, xmlDoc, txt;
+  xmlDoc = xml.responseXML;
+  txt = "";
+  //loop through the XML files looking for temperatures
+  x = xmlDoc.getElementsByTagName("temperature");
+  for (i = 0; i< x.length; i++) {
+    txt += "temp: "+x[i].getAttribute("value") + "C" + "<br>";
+    if(i>10){
+      break;
+    }
+  }
+  //use the DOM to display the data to the HTML
+  document.getElementById("demo").innerHTML = txt;
+}
+</script>
+
+
+</body>
 </html>
