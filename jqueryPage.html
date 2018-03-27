@@ -10,13 +10,13 @@
   <body>
 
     <!-- NAVIGATION BAR -->
-    <nav class="navbar navbar-inverse">
+    <nav class="navbar navbar-inverse" style="background-color:#421221; height:64px; padding-top:5px;">
       <div class="container-fluid">
       <div class="navbar-header">
         <a class="navbar-brand" href="#">WebSiteName</a>
       </div>
         <ul class="nav navbar-nav">
-          <li class="active"><a href="index.html">Home</a></li>
+          <li><a href="index.html">Home</a></li>
           <li><a href="#">JQuery API page</a></li>
           <li><a href="#">Page 2</a></li>
           <li><a href="#">Page 3</a></li>
@@ -51,25 +51,37 @@ function loadXMLDoc() {
       myFunction(this);
     }
   };
-  //xml data from yr.no's webpage
-  var api_uri = "https://api.met.no/weatherapi/locationforecast/1.9/?lat=60.10&lon=9.58";
+  //xml data from yr.no's webpage (Stockholm lat, long)
+  var api_uri = "https://api.met.no/weatherapi/locationforecast/1.9/?lat=59.3293&lon=18.0686";
   //use http GET to acquire data
   xmlhttp.open("GET", api_uri, true);
   xmlhttp.send();
 }
 
 function myFunction(xml) {
-  var x, i, xmlDoc, txt;
+  var x, i, xmlDoc, txt, tim, from, to;
   xmlDoc = xml.responseXML;
   txt = "";
   //loop through the XML files looking for temperatures
-  x = xmlDoc.getElementsByTagName("temperature");
-  for (i = 0; i< x.length; i++) {
-    txt += "temp: "+x[i].getAttribute("value") + "C" + "<br>";
-    if(i>10){
+  tim = xmlDoc.getElementsByTagName("time");
+  temp = xmlDoc.getElementsByTagName("temperature");
+
+  //FIX: there is no attribute at certain i's, need to change this
+  //1 value for now
+  for( i = 0; i<tim.length; i++ ) {
+    if(i==1){
       break;
     }
+    from = tim[i].getAttribute("from");
+    to = tim[i].getAttribute("to");
+    if( from === to ) {
+      var str = tim[i].getAttribute("from");
+      var date = str.substring(0, 10);
+      var tim = str.substring(11, 16);
+      txt += "Stockholm " + date + " , " + tim + " -- " + temp[i].getAttribute("value") + " degrees celsius";
+    }
   }
+  
   //use the DOM to display the data to the HTML
   document.getElementById("demo").innerHTML = txt;
 }
