@@ -1,0 +1,67 @@
+<html>
+<head>
+  <title>E-commerce</title>
+  <!-- IMPORTED BOOTSTRAP AND JQUERY -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+  
+  <body>
+
+    <!-- NAVIGATION BAR -->
+    <nav class="navbar navbar-inverse" style="background-color:#421221; height:64px; padding-top:5px;">
+      <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">WebSiteName</a>
+      </div>
+        <ul class="nav navbar-nav">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="jqueryPage.html">JQuery API page</a></li>
+          <li><a href="#">Search</a></li>
+          <li><a href="#">Page 3</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- HEADER HOME PAGE -->
+    <div class="row"> 
+      <div class="col-md-6"></div>
+      <div class="col-md-6"><h3> SEARCH </h3> </div>
+    </div>
+
+    <!-- SEARCH FUNCTION -->
+    <div class="row"> 
+      <div class="col-md-5"></div>
+      <div class="col-md-7">  
+        <form action=""> 
+          First name: <input type="text" id="txt1" onkeyup="showHint(this.value)">
+        </form>
+        <br>
+        <p>Suggestions: <span id="txtHint"></span></p> 
+      </div>
+    </div>
+
+<!-- JAVASCRIPT -->
+<script>
+function showHint(str) {
+  var xhttp;
+  if (str.length == 0) { 
+    document.getElementById("txtHint").innerHTML = "";
+    return;
+  }
+  xhttp = new XMLHttpRequest();
+  //xhttp.withCredentials = true;
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("txtHint").innerHTML = this.responseText;
+    }
+  };
+  xhttp.open("GET", "http://localhost/OpenSiteServer/gethint.php?q="+str, true);
+  xhttp.send();   
+}
+</script>
+
+  </body>
+
+</html>
