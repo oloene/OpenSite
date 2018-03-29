@@ -53,38 +53,36 @@ function loadXMLDoc() {
   };
   //xml data from yr.no's webpage (Stockholm lat, long)
   var api_uri = "https://api.met.no/weatherapi/locationforecast/1.9/?lat=59.3293&lon=18.0686";
+console.log(api_uri);
   //use http GET to acquire data
   xmlhttp.open("GET", api_uri, true);
   xmlhttp.send();
 }
 
 function myFunction(xml) {
-  var x, i, xmlDoc, txt, tim, from, to;
+  var x, i, xmlDoc, txt, time, from, to;
   xmlDoc = xml.responseXML;
   txt = "";
   //loop through the XML files looking for temperatures
-  tim = xmlDoc.getElementsByTagName("time");
+  time = xmlDoc.getElementsByTagName("time");
   temp = xmlDoc.getElementsByTagName("temperature");
-
-  //FIX: there is no attribute at certain i's, need to change this
-  //1 value for now
-  for( i = 0; i<tim.length; i++ ) {
-    if(i==1){
-      break;
-    }
-    from = tim[i].getAttribute("from");
-    to = tim[i].getAttribute("to");
-    if( from === to ) {
-      var str = tim[i].getAttribute("from");
-      var date = str.substring(0, 10);
-      var tim = str.substring(11, 16);
-      txt += "Stockholm " + date + " , " + tim + " -- " + temp[i].getAttribute("value") + " degrees celsius";
-    }
-  }
   
-  //use the DOM to display the data to the HTML
-  document.getElementById("demo").innerHTML = txt;
-}
+  //grabs temperatures within 4 hours
+  var index = 0;
+  for( i = 0; i < 16; i++ ) {
+    var fromm = time[i].getAttribute("from");
+    var too = time[i].getAttribute("to");
+      if(fromm == too){
+      console.log( temp[index].getAttribute("value") );
+      var d = fromm.substring(0,10);
+      var t = fromm.substring(11,16);
+      txt += "Stockholm, " + d + ", T"+t + ", " + temp[index].getAttribute("value") + " degrees celsius <br>";
+      index++;
+      }
+    }
+    //use DOM to display values
+    document.getElementById("demo").innerHTML = txt;
+  }
 </script>
 
 
