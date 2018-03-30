@@ -16,10 +16,10 @@
         <a class="navbar-brand" href="#">WebSiteName</a>
       </div>
         <ul class="nav navbar-nav">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="#">Weather</a></li>
-          <li><a href="searchTest.html">Search</a></li>
-          <li><a href="#">Page 3</a></li>
+          <li><a href="index.html"> <span class="glyphicon glyphicon-home"></span> </a></li>
+          <li><a href="#"> <span class="glyphicon glyphicon-download"></span> </a></li>
+          <li><a href="searchTest.html"><span class="glyphicon glyphicon-search"></span></a></li>
+          <li><a href="#"><span class="glyphicon glyphicon-globe"></span></a></li>
         </ul>
       </div>
     </nav>
@@ -38,7 +38,8 @@
     <!-- TEMPERATURE VALUES DISPLAYED ON SCREEN -->
     <div class="row">
       <div class="col-md-5"></div>
-      <div class="col-md-7"> <p id="demo"></p> </div>
+      <div class="col-md-4"> <p id="demo"></p> </div>
+      <div class="col-md-3"></div>
     </div>
 
 <script>
@@ -76,7 +77,7 @@ function myFunction(xml) {
       console.log( temp[index].getAttribute("value") );
       var d = fromm.substring(0,10);
       var t = fromm.substring(11,16);
-      txt += "Stockholm, " + d + ", T"+t + ", " + temp[index].getAttribute("value") + " degrees celsius <br>";
+      txt += "<ul class='list-group'> <li class='list-group-item list-group-item-success'> Stockholm, " + d + ", T"+t + ", " + temp[index].getAttribute("value") + " degrees celsius </li> </ul>";
       index++;
       }
     }
