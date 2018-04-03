@@ -1,0 +1,59 @@
+<html>
+<head>
+  <title>E-commerce</title>
+  <!-- IMPORTED BOOTSTRAP AND JQUERY -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+  
+  <body ng-app="myApp">
+
+    <!-- NAVIGATION BAR -->
+    <nav class="navbar navbar-inverse" style="background-color:#421221; height:64px; padding-top:5px;">
+      <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">WebSiteName</a>
+      </div>
+        <ul class="nav navbar-nav">
+          <li><a href="../index.html"> <span class="glyphicon glyphicon-home"></span> </a></li>
+          <li><a href="../jqueryPage.html"> <span class="glyphicon glyphicon-download"></span> </a></li>
+          <li><a href="../searchTest.html"><span class="glyphicon glyphicon-search"></span></a></li>
+          <li><a href="#"><span class="glyphicon glyphicon-globe"></span></a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- HEADER HOME PAGE -->
+    <div class="row"> 
+      <div class="col-md-5"></div>
+      <div class="col-md-7"><h3> ANGULAR </h3> </div>
+    </div>
+  
+    <!-- ANGULAR -->
+    <div class="row"> 
+      <div class="col-md-5"></div>
+      <div class="col-md-7"> 
+        <div  ng-controller="myCtrl" ng-init="firstname='TEST'">
+          <h3> {{firstname +" "+ lastname}} </h3> 
+        </div>
+      </div>
+    </div>  
+
+    <div class="row"> 
+      <div class="col-md-5"></div>
+      <div class="col-md-7"> 
+        <div ng-init="firstName='John'">
+          <p>Name: <input type="text" ng-model="firstName"></p>
+          <p>You wrote: {{ firstName }}</p>
+        </div>
+      </div>
+    </div>  
+    
+
+  <script src="myApp.js"></script>
+  <script src="myCtrl.js"></script>
+  </body>
+  
+</html>
